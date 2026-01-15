@@ -1,4 +1,25 @@
 @import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+:root {
+    --couleur-primaire: #B9DEB4;
+    --couleur-secondaire: #2F6F42;
+    --font-titre: "Montserrat", sans-serif;
+    --font-texte: "Inter", sans-serif;
+    --font-titre-weight: 700;
+    --font-titre-size: 3.5rem;
+    --font-sous-titre-size: 1.8rem;
+    --font-texte-size: 1rem;
+    --font-titre-section-size: 2rem;
+    --margin: 40px;
+    --gap: 35px;
+    --card-radius: 20px;
+    --stats-text-padding: 5%;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 img {
     width: 250px;
@@ -9,306 +30,319 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 10%;
+    padding-left: 10vw;
     background-image: url(../images/hero.jpeg);
-     background-size: cover;
+    background-size: cover;
+    background-position: center;
+    gap: 20px;
+}
+
+#hero>h2 {
+    font-family: var(--font-texte);
+    font-size: var(--font-sous-titre-size);
     color: white;
+    font-style: italic;
+    font-weight: 400;
+
 }
 
-.stats{
-  /* fond global très clair comme la maquette */
-  background: #f7f8f1;
-  padding: 56px 64px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 36px;
-  align-items: stretch;
+#hero>h1 {
+    font-family: var(--font-titre);
+    font-size: var(--font-titre-size);
+    color: white;
+    line-height: var(--font-titre-size);
 }
 
-/* cellule générique */
-.stats__cell{
-  min-height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#hero>a {
+    display: flex;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: var(--couleur-secondaire);
+    width: 150px;
+    margin-top: 40px;
 }
 
-/* cartes vertes */
-.stats__card{
-  background: #bfe0b8;
-  border-radius: 28px;
+#stats {
+    margin: var(--margin);
 }
 
-/* cellules texte (sans fond) */
-.stats__cell--text{
-  background: transparent;
-  justify-content: flex-start;
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: var(--gap);
 }
 
-.stats__cell--left{
-  padding-left: 8px;
+.stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background: var(--couleur-primaire);
+    border-radius: var(--card-radius);
 }
 
-.stats__cell--right{
-  justify-content: flex-end;
-  padding-right: 8px;
-  text-align: right;
+.stats-text {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-titre);
+    font-weight: var(--font-titre-weight);
+    font-size: var(--font-titre-section-size);
+    line-height: 2.5rem;
 }
 
-/* typo */
-.stats__title{
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  font-size: clamp(32px, 3vw, 56px);
-  line-height: 1.05;
-  color: #0b0b0b;
-}
-
-/* juste un placeholder (tu peux supprimer quand tu mets tes icônes) */
-.stats__placeholder{
-  font-size: 56px;
-}
-
-/* responsive simple */
-@media (max-width: 900px){
-  .stats{
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  .stats__cell--right{
-    justify-content: flex-start;
+.stats-text--left {
+    justify-content: center;
     text-align: left;
-    padding-right: 0;
-  }
+    padding-left: var(--stats-text-padding);
 }
 
-/* -------------------------------------------------------------------------- */
-/* Teams (Les équipes analysées)                                              */
-/* -------------------------------------------------------------------------- */
-
-.teams{
-  background: #bfe0b8;
-  padding: clamp(48px, 6vw, 96px) 24px;
+.stats-text--right {
+    justify-content: center;
+    text-align: right;
+    padding-right: var(--stats-text-padding);
 }
 
-.teams__container{
-  max-width: 1100px;
-  margin: 0 auto;
-  text-align: center;
+/* equipes */
+
+#equipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 600px;
+    padding: var(--margin);
+    background-color: var(--couleur-primaire);
 }
 
-.teams__title{
-  margin: 0 0 clamp(28px, 4vw, 52px);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  font-size: clamp(34px, 4.2vw, 64px);
-  line-height: 1.05;
-  color: #0b0b0b;
+#equipes>h2 {
+    font-family: var(--font-titre);
+    font-size: var(--font-titre-section-size);
+    line-height: var(--font-titre-section-size);
+    text-align: center;
+    margin-bottom: 70px;
 }
 
-/* id="teamList" reste obligatoire (JS). On lui donne l'allure du carrousel 3 cartes */
-.teams__cards{
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(18px, 3vw, 48px);
-  margin: 0 auto;
+.carousel {
+    width: 100%;
+    /* overflow: hidden; */
 }
 
-/* Affiche seulement 3 cartes comme la maquette, tout en gardant le DOM complet */
-.teams__cards .team-card:nth-of-type(n+4){
-  display: none;
+.carousel__track {
+    display: flex;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+    will-change: transform;
 }
 
-.team-card{
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 22px 22px 26px;
-  width: clamp(240px, 24vw, 340px);
+.carousel__row {
+    display: flex;
+    gap: 32px;
+    padding-inline: 10px;
 }
 
-.teams__cards .team-card:nth-of-type(2){
-  transform: translateY(-18px);
+.carousel:hover .carousel__track {
+    animation-play-state: paused;
 }
 
-.team-card__media{
-  background: #d9d9d9;
-  border-radius: 18px;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
-/* On neutralise le "img { width:250px }" au sein des cartes */
-.team-card__img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+#teamList {
+    display: flex;
 }
 
-.team-card__name{
-  margin: 18px 0 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  font-size: clamp(22px, 2.2vw, 32px);
-  color: #0b0b0b;
-}
-
-.team-card__meta{
-  display: none;
-}
-
-.teams__more{
-  margin: clamp(24px, 4vw, 44px) 0 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 800;
-  font-size: clamp(30px, 3.6vw, 56px);
-  color: #2f6b3f;
-}
-
-.teams__count::before{
-  content: "+";
-}
-
-@media (max-width: 900px){
-  .teams__cards{
+.team-card {
+    display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .teams__cards .team-card:nth-of-type(2){
-    transform: none;
-  }
-  .team-card{
-    width: min(420px, 92vw);
-  }
+    justify-content: space-around;
+    background-color: white;
+    padding: 20px;
+    height: 330px;
+    border-radius: 20px;
 }
 
-/* SECTION : Télécharger le rapport */
-.download{
-  background:#f7f8f1;
-  padding:56px 64px;
+.team-card__img {
+    height: 200px;
+    object-fit: scale-down;
 }
 
-.download__container{
-  max-width:1200px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:64px;
+.team-card__name {
+    font-family: var(--font-texte);
 }
 
-.download__title{
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:800;
-  font-size: clamp(36px, 4vw, 64px);
-  line-height:1.05;
-  color:#0b0b0b;
+#container-btn-equipe {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
 }
 
-.download__panel{
-  width:min(720px, 100%);
-  background:#bfe0b8;
-  border-radius:28px;
-  padding:22px;
+#btn-equipes {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    background-color: var(--couleur-secondaire);
+    width: 150px;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 10px;
 }
 
-.download__messages{
-  margin-bottom:14px;
+#btn-suffix {
+    padding-left: 5px;
 }
 
-/* Le template messageItem.html ajoute .message + .success/.error/.loading */
-.download__messages .message{
-  border-radius:18px;
-  padding:12px 14px;
-  margin:0 0 10px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:700;
-}
-.download__messages .success{ background:#e9f7ee; color:#1f6b3b; }
-.download__messages .error{ background:#fdecec; color:#a12b2b; }
-.download__messages .loading{ background:#ffffff; color:#1f6b3b; }
 
-.download__form{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+
+
+/* formulaire */
+
+#formulaire {
+    margin: var(--margin);
+    display: flex;
+    flex-direction: row;
+    height: 600px;
 }
 
-.download__form input[type="text"],
-.download__form input[type="email"]{
-  width:100%;
-  height:64px;
-  border:none;
-  outline:none;
-  border-radius:999px;
-  padding:0 22px;
-  background:#ffffff;
-  font-size:22px;
-  font-weight:700;
-  color:#0b0b0b;
+#form-left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 5%;
+    gap: 20px;
 }
 
-.download__form input::placeholder{
-  color:#7b7b7b;
+#form-left>h2 {
+    font-family: var(--font-titre);
+    font-size: var(--font-titre-section-size);
+    line-height: var(--font-titre-section-size);
 }
 
-.download__consent{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:6px 4px;
+#form-left>p {
+    font-family: var(--font-texte);
+    font-size: var(--font-texte-size);
 }
 
-.download__consent input{
-  width:28px;
-  height:28px;
-  accent-color:#2f6b3f;
+#form-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
 }
 
-.download__consent label{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:800;
-  font-size:22px;
-  color:#ffffff;
+#downloadForm {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--couleur-primaire);
+    padding: 20px;
+    border-radius: 20px;
 }
 
-.download__btn{
-  height:74px;
-  border:none;
-  border-radius:20px;
-  background:#2f6b3f;
-  color:#ffffff;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight:900;
-  letter-spacing:0.04em;
-  font-size:26px;
-  cursor:pointer;
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-texte);
+    font-size: var(--font-texte-size);
+    height: 400px;
 }
 
-.download__btn:active{ transform: translateY(1px); }
-
-.sr-only{
-  position:absolute;
-  width:1px;height:1px;
-  padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0,0,0,0);
-  white-space:nowrap;border:0;
+input {
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
 }
 
-@media (max-width: 900px){
-  .download{ padding:40px 20px; }
-  .download__container{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:24px;
-  }
-  .download__panel{ width:100%; }
+footer {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 2rem;
+    flex-direction: column;
+    background-color: #B9DEB4;
+    font-family: var(--font-texte);
+    font-size: var(--font-texte-size);
+    padding: 10%;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 900px) {
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 1fr;
+        gap: var(--gap);
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 1fr;
+        gap: var(--gap);
+    }
+
+    .stats-text--left {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .stats-text--right {
+        justify-content: center;
+        text-align: center;
+    }
+
+    #formulaire {
+    
+    gap: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    }
+
+    #form-left {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 5%;
+    gap: 20px;
+    }
+
+    #form-left>h2 {
+        font-family: var(--font-titre);
+        font-size: var(--font-titre-section-size);
+        line-height: var(--font-titre-section-size);
+    }
+
+    #form-left>p {
+        font-family: var(--font-texte);
+        font-size: var(--font-texte-size);
+    }
+
+    #form-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
 }
