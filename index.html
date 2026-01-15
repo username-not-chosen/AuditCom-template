@@ -1,27 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rapport</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="src/main.js" type="module" defer></script>
 
 </head>
+
 <body>
+    <section id="hero">
+        <h2>Sous-titre</h2>
+        <h1>Le football romand à l'ère du digital</h1>
+        <a href="#">Télécharger</a>
+    </section>
+    <section id="stats">
+        <section class="stats">
+  <!-- Cellule 1 : texte (sans fond) -->
+  <div class="stats__cell stats__cell--text stats__cell--left">
+    <h2 class="stats__title">Quelques<br />chiffres</h2>
+  </div>
+
+  <!-- Cellule 2 : carte -->
+  <div class="stats__cell stats__card">
+    <!-- remplace ceci par ton SVG / image -->
+    <div class="stats__placeholder">📈</div>
+  </div>
+
+  <!-- Cellule 3 : carte -->
+  <div class="stats__cell stats__card">
+    <div class="stats__placeholder">📊</div>
+  </div>
+
+  <!-- Cellule 4 : carte -->
+  <div class="stats__cell stats__card">
+    <div class="stats__placeholder">🥧</div>
+  </div>
+
+  <!-- Cellule 5 : carte -->
+  <div class="stats__cell stats__card">
+    <div class="stats__placeholder">📋</div>
+  </div>
+
+  <!-- Cellule 6 : texte (sans fond) -->
+  <div class="stats__cell stats__cell--text stats__cell--right">
+    <p class="stats__title">Texte à<br />définir</p>
+  </div>
+</section>
+
+<section id="equipes" class="teams">
+  <div class="teams__container">
+    <h2 class="teams__title">Les équipes analysées</h2>
+
+    <!-- id="teamList" : Conteneur où seront ajoutés dynamiquement les éléments d'équipe. Ne pas modifier cet ID. -->
+    <div id="teamList" class="teams__cards" aria-label="Équipes analysées"></div>
+
     <!-- data-bind-global="count" : Affiche le nombre total de rapports (métadonnées globales) -->
-    <h1 data-bind-global="count"></h1>
-    
-    <!-- id="teamList" : Conteneur où seront ajoutés dynamiquement les éléments de l'équipe. Le nom de cet ID ne doit pas être modifié. -->
-    <section id="teamList">
+    <p class="teams__more"><span class="teams__count" data-bind-global="count">0</span> équipes</p>
+  </div>
+</section>
+
     </section>
 
-    <!-- id="messageContainer" : Conteneur pour afficher les messages de succès ou d'erreur. Le nom de cet ID ne doit pas être modifié. -->
-    <div id="messageContainer"></div>
 
-    <!-- id="downloadForm" : Formulaire pour télécharger le PDF. Le nom de cet ID ne doit pas être modifié. -->
-    <form id="downloadForm">
-    </form>
+    <section id="download" class="download">
+  <div class="download__container">
+    <h2 class="download__title">Télécharger le<br />rapport</h2>
+
+    <div class="download__panel">
+      <!-- Le JS injecte automatiquement les messages ici (succès/erreur/loading) -->
+      <div id="messageContainer" class="download__messages"></div>
+
+      <!-- ID OBLIGATOIRE : connecté à l’API dans le JS -->
+      <form id="downloadForm" class="download__form">
+        <label class="sr-only" for="lastName">Nom</label>
+        <input id="lastName" type="text" name="lastName" placeholder="Nom" required />
+
+        <label class="sr-only" for="firstName">Prénom</label>
+        <input id="firstName" type="text" name="firstName" placeholder="Prénom" required />
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="Email" required />
+
+        <div class="download__consent">
+          <input id="consent" type="checkbox" name="newsletterAgreement" />
+          <label for="consent">S’inscrire à la newsletter</label>
+        </div>
+
+        <button type="submit" class="download__btn">TÉLÉCHARGER</button>
+      </form>
+    </div>
+  </div>
+</section>
 
 </body>
+<footer></footer>
+
 </html>

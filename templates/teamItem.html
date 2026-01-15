@@ -1,12 +1,12 @@
 <template>
-  <article>
-    <!-- data-bind-attr-src="logoUrl" : Affiche le logo de l'équipe -->
-    <img data-bind-attr-src="logoUrl" alt="Logo">
-    <!-- data-bind="teamName" : Affiche le nom de l'équipe -->
-    <h2 data-bind="teamName"></h2>
-    <!-- data-bind="uploadedAt" : Affiche la date de téléversement -->
-    <p data-bind="uploadedAt"></p>
-    <!-- data-bind="author" : Affiche l'auteur -->
-    <p data-bind="author"></p>
+  <article class="team-card">
+    <div class="team-card__media">
+      <img class="team-card__img" data-bind-attr-src="logoUrl" alt="Logo de l'équipe">
+    </div>
+
+    <h3 class="team-card__name" data-bind="teamName"></h3>
+
+    <p class="team-card__meta" data-bind="uploadedAt"></p>
+    <p class="team-card__meta" data-bind="author"></p>
   </article>
 </template>
