@@ -7,7 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="src/main.js" type="module" defer></script>
-
 </head>
 
 <body>
@@ -22,10 +21,73 @@
         <div class="stats-grid">
             <article class="stats-text stats-text--left">Synthèse<br>des chiffres</article>
 
-            <article class="stat-card">test</article>
-            <article class="stat-card">test</article>
-            <article class="stat-card">test</article>
-            <article class="stat-card">test</article>
+            <article class="stat-card stat-card--chart" style="--value: 68">
+                <!-- Titre visible AVANT hover -->
+                <p class="stat-card__title stat-card__title--preview">Clubs présents sur Instagram</p>
+
+                <div class="stat-card__header">
+                    <!-- Titre visible AU hover -->
+                    <p class="stat-card__title stat-card__title--header">Clubs présents sur Instagram</p>
+                    <p class="stat-card__value">68%</p>
+                </div>
+
+                <div class="bar">
+                    <span class="bar__fill" aria-hidden="true"></span>
+                </div>
+
+                <p class="stat-card__hint">Sur 27 clubs analysés</p>
+            </article>
+
+            <article class="stat-card stat-card--chart" style="--value: 4.2">
+                <!-- Titre visible AVANT hover -->
+                <p class="stat-card__title stat-card__title--preview">Publications / semaine (moy.)</p>
+
+                <div class="stat-card__header">
+                    <!-- Titre visible AU hover -->
+                    <p class="stat-card__title stat-card__title--header">Publications / semaine (moy.)</p>
+                    <p class="stat-card__value">4.2</p>
+                </div>
+
+                <div class="bar bar--max" style="--max: 10">
+                    <span class="bar__fill" aria-hidden="true"></span>
+                </div>
+
+                <p class="stat-card__hint">Échelle : 0 → 10</p>
+            </article>
+
+            <article class="stat-card stat-card--chart" style="--value: 81">
+                <!-- Titre visible AVANT hover -->
+                <p class="stat-card__title stat-card__title--preview">Clubs avec site à jour</p>
+
+                <div class="stat-card__header">
+                    <!-- Titre visible AU hover -->
+                    <p class="stat-card__title stat-card__title--header">Clubs avec site à jour</p>
+                    <p class="stat-card__value">81%</p>
+                </div>
+
+                <div class="bar">
+                    <span class="bar__fill" aria-hidden="true"></span>
+                </div>
+
+                <p class="stat-card__hint">Pages actus / résultats</p>
+            </article>
+
+            <article class="stat-card stat-card--chart" style="--value: 55">
+                <!-- Titre visible AVANT hover -->
+                <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
+
+                <div class="stat-card__header">
+                    <!-- Titre visible AU hover -->
+                    <p class="stat-card__title stat-card__title--header">Clubs avec newsletter</p>
+                    <p class="stat-card__value">55%</p>
+                </div>
+
+                <div class="bar">
+                    <span class="bar__fill" aria-hidden="true"></span>
+                </div>
+
+                <p class="stat-card__hint">Opt-in / communication</p>
+            </article>
 
             <article class="stats-text stats-text--right">Extraits de<br>l’analyse complète</article>
         </div>
@@ -36,11 +98,7 @@
 
         <div class="carousel">
             <div class="carousel__track" id="teamTrack">
-                <section id="teamList" class="carousel__row">
-
-                </section>
-
-
+                <section id="teamList" class="carousel__row"></section>
                 <section class="carousel__row" id="teamListClone" aria-hidden="true"></section>
             </div>
         </div>
@@ -53,7 +111,6 @@
             </a>
         </div>
     </section>
-
 
     <section id="formulaire">
         <div id="form-left">
@@ -79,23 +136,12 @@
 
                 <button type="submit" class="download__btn">TÉLÉCHARGER</button>
             </form>
+            <div id="messageContainer" class="download__messages"></div>
         </div>
     </section>
 
-
-
-
-    <!-- data-bind-global="count" : Affiche le nombre total de rapports (métadonnées globales) -->
-    <!-- <h1 data-bind-global="count"></h1> -->
-
-    <!-- id="teamList" : Conteneur où seront ajoutés dynamiquement les éléments de l'équipe. Le nom de cet ID ne doit pas être modifié. -->
-    <!-- <section id="teamList">
-    </section> -->
-
-    <!-- id="messageContainer" : Conteneur pour afficher les messages de succès ou d'erreur. Le nom de cet ID ne doit pas être modifié. -->
-    <!-- <div id="messageContainer"></div> -->
-
 </body>
+
 <footer>
     <p>Projet académique – HEIG-VDAnalyse de l’écosystème digital des clubs de football romands<br>Réalisé par Daria
         Beaumann et Mattia Morel – Ingénierie des médias© 2026</p>
