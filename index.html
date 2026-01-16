@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <script src="src/main.js" type="module" defer></script>
     <meta property="og:title" content="Landing page - DigitalCom">
-    <meta property="og:description"
-        content="Un rapport complet sur les stratégies digitales des clubs romands.">
+    <meta property="og:description" content="Un rapport complet sur les stratégies digitales des clubs romands.">
     <meta property="og:image" content="https://username-not-chosen.github.io/AuditCom-template/images/hero.webp">
     <meta property="og:url" content="https://username-not-chosen.github.io/AuditCom-template">
     <meta property="og:type" content="website">
@@ -100,14 +99,14 @@
                 </div>
             </article>
 
-            
+
             <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
                 <div class="stat-card__header"></div>
                 <p class="stat-card__big">15%</p>
             </article>
 
-            
+
             <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
                 <div class="stat-card__header"></div>
@@ -158,7 +157,7 @@
                     <label for="consent">S’inscrire à la newsletter</label>
                 </div>
 
-                
+
                 <p id="consentHint" class="consent-hint" aria-live="polite"></p>
 
                 <button type="submit" class="download__btn" id="downloadBtn">
@@ -242,7 +241,7 @@
             }
         });
 
-        
+
         document.querySelectorAll(".stat-card--chart").forEach((card) => {
             const raw = getComputedStyle(card).getPropertyValue("--value").trim();
             const v = parseFloat(raw);
@@ -271,7 +270,7 @@
             let rafId = null;
             let manualLoading = false;
 
-            
+
             let wasLoading = false;
             let hadProgressDuringThisDownload = false;
 
@@ -280,7 +279,7 @@
                 downloadBtn.style.setProperty("--p", safe.toFixed(2));
             };
 
-            
+
             const renderMessage = ({ type = "error", text = "", showProgress = false, pct = 0 } = {}) => {
                 const safePct = Math.max(0, Math.min(100, pct));
                 msgContainer.innerHTML = `
@@ -327,7 +326,7 @@
                 const txt = getInjectedMessageText();
                 const { exists, pct } = getProgressInfo();
 
-                
+
                 const isError =
                     msg?.classList.contains("error") ||
                     txt.includes("erreur") ||
@@ -335,7 +334,7 @@
                     txt.includes("échec") ||
                     txt.includes("echec");
 
-                
+
                 let isSuccess =
                     msg?.classList.contains("success") ||
                     txt.includes("terminé") ||
@@ -343,7 +342,7 @@
                     txt.includes("succès") ||
                     txt.includes("success");
 
-                
+
                 let isLoading =
                     !isError &&
                     !isSuccess &&
@@ -353,10 +352,10 @@
                         txt.includes("telechargement") ||
                         txt.includes("download"));
 
-               
+
                 if (manualLoading && exists) hadProgressDuringThisDownload = true;
 
-                
+
                 if (
                     manualLoading &&
                     !isError &&
@@ -383,9 +382,9 @@
                 if (isLoading) rafId = requestAnimationFrame(tick);
             };
 
-           
+
             form.addEventListener("submit", (e) => {
-                
+
                 if (consent && !consent.checked) {
                     e.preventDefault();
                     e.stopImmediatePropagation();
@@ -396,17 +395,17 @@
                         consentHint.textContent = "Pour télécharger le rapport, vous devez cocher la case newsletter.";
                     }
 
-                   
+
                     if (label) label.textContent = "Télécharger le rapport complet";
 
-                  
+
                     return;
                 }
 
-               
+
                 if (consentHint) consentHint.textContent = "";
 
-               
+
                 manualLoading = true;
                 wasLoading = true;
                 hadProgressDuringThisDownload = false;
@@ -422,7 +421,7 @@
                     tick();
                 });
 
-               
+
                 clearTimeout(downloadBtn._watchdog);
                 downloadBtn._watchdog = setTimeout(() => {
                     const hasMsg = !!msgContainer.querySelector(".message");
@@ -440,9 +439,9 @@
                         if (label) label.textContent = "Erreur de téléchargement";
                     }
                 }, 8000);
-            }, true); 
+            }, true);
 
-         
+
             consent?.addEventListener("change", () => {
                 if (!consentHint) return;
                 consentHint.textContent = consent.checked
@@ -515,6 +514,48 @@
 
             syncButtonState();
         }
+
+        // Stats: sur mobile, on ouvre/ferme au tap (au lieu de hover)
+        (() => {
+            const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+            if (!isTouch) return;
+
+            const cards = document.querySelectorAll(".stat-card--chart");
+
+            const closeAll = (except = null) => {
+                cards.forEach(c => {
+                    if (c !== except) c.classList.remove("is-open");
+                });
+            };
+
+            cards.forEach((card) => {
+                // rend la carte "tappable" et accessible
+                if (!card.hasAttribute("tabindex")) card.setAttribute("tabindex", "0");
+                card.style.cursor = "pointer";
+
+                card.addEventListener("click", (e) => {
+                    e.stopPropagation();
+
+                    const willOpen = !card.classList.contains("is-open");
+                    closeAll(card);
+                    card.classList.toggle("is-open", willOpen);
+                });
+
+                // optionnel: clavier (Enter/Espace)
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        const willOpen = !card.classList.contains("is-open");
+                        closeAll(card);
+                        card.classList.toggle("is-open", willOpen);
+                    }
+                });
+            });
+
+            // tap hors carte => on ferme
+            document.addEventListener("click", () => closeAll());
+        })();
+
     </script>
 </body>
 

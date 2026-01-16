@@ -916,3 +916,57 @@ footer {
     line-height: 1.25;
     color: #b00020;
 }
+
+/* Mobile/tablette : ouverture au tap (pas de hover) */
+@media (hover: none), (pointer: coarse) {
+
+  /* même effet que :hover */
+  .stat-card--chart.is-open {
+    transform: translateY(-2px);
+  }
+
+  .stat-card--chart.is-open .stat-card__title--preview {
+    opacity: 0;
+  }
+
+  .stat-card--chart.is-open .stat-card__title--header {
+    opacity: 1;
+  }
+
+  .stat-card--chart.is-open .stat-card__header,
+  .stat-card--chart.is-open .stat-card__value,
+  .stat-card--chart.is-open .stat-card__hint,
+  .stat-card--chart.is-open .bar {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-height: 80px;
+  }
+
+  .stat-card--chart.is-open .bar2 {
+    max-height: 280px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .stat-card--chart.is-open .hstats {
+    max-height: 600px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* big value */
+  .stat-card--bigvalue.is-open .stat-card__big {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .stat-card--bigvalue.is-open .stat-card__header {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+  }
+}
