@@ -31,7 +31,8 @@ img {
     flex-direction: column;
     justify-content: center;
     padding-left: 10vw;
-    background-image: url(../images/hero.jpeg);
+    padding-right: 10vw;
+    background-image: url(../images/hero.webp);
     background-size: cover;
     background-position: center;
     gap: 20px;
@@ -55,6 +56,7 @@ img {
 #hero>a {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 10px 18px;
     border-radius: 10px;
     text-decoration: none;
@@ -62,6 +64,8 @@ img {
     background-color: var(--couleur-secondaire);
     width: 150px;
     margin-top: 40px;
+    font-family: var(--font-texte);
+    font-weight: 600;
 }
 
 #stats {
@@ -113,7 +117,6 @@ img {
     gap: 14px;
     align-items: stretch;
     text-align: left;
-
     transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
@@ -122,13 +125,12 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     font-family: var(--font-texte);
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    line-height: 1.2rem;
+    line-height: 1.8rem;
     text-align: center;
-
+    color: var(--couleur-secondaire);
     opacity: 1;
     transition: opacity 0ms ease;
     pointer-events: none;
@@ -139,27 +141,25 @@ img {
     display: flex;
     align-items: baseline;
     gap: 16px;
-
     justify-content: space-between;
     transition: justify-content 120ms ease;
 }
-
 
 .stat-card__title--header {
     font-family: var(--font-texte);
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.2rem;
-
+    color: var(--couleur-secondaire);
     opacity: 0;
     transition: opacity 150ms ease;
 }
 
-/* Détails */
 .stat-card__value {
     font-family: var(--font-titre);
     font-weight: 700;
     font-size: 1.3rem;
+    color: var(--couleur-secondaire);
 }
 
 .stat-card__hint {
@@ -168,6 +168,7 @@ img {
     opacity: 0.8;
 }
 
+/* bar simple horizontale */
 .bar {
     height: 14px;
     background: rgba(47, 111, 66, 0.18);
@@ -181,25 +182,21 @@ img {
     width: calc(var(--value, 0) * 1%);
     background: var(--couleur-secondaire);
     border-radius: 999px;
-
     transition: width 400ms ease;
 }
 
-.bar--max .bar__fill {
-    width: calc((var(--value, 0) / var(--max, 100)) * 100%);
-}
-
+/* reveal par défaut (bar simple) */
 .stat-card--chart .stat-card__header,
 .stat-card--chart .stat-card__value,
 .stat-card--chart .stat-card__hint,
-.stat-card--chart .bar {
+.stat-card--chart .bar,
+.stat-card--chart .bar2,
+.stat-card--chart .hstats {
     opacity: 0;
     transform: translateY(6px);
     pointer-events: none;
-
     max-height: 0;
     overflow: hidden;
-
     transition: opacity 120ms ease, transform 120ms ease, max-height 120ms ease;
 }
 
@@ -225,15 +222,200 @@ img {
     max-height: 80px;
 }
 
+.stat-card--chart:hover .bar2 {
+    max-height: 280px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.stat-card--chart:hover .hstats {
+    max-height: 600px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ====== BAR2 (Oui/Non vertical) ====== */
+.bar2 {
+    --yes: clamp(0, var(--value, 0), 100);
+    --no: calc(100 - var(--yes));
+    --bar-w: 60%;
+    --plot-h: 140px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+    align-items: end;
+}
+
+.bar2__col {
+    display: grid;
+    gap: 12px;
+
+    justify-items: center;
+}
+
+.bar2__plot {
+    height: var(--plot-h);
+    width: 60%;
+    border-radius: 18px;
+    background: rgba(47, 111, 66, 0.18);
+    overflow: hidden;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bar2__bar {
+    width: 100%;
+    height: 0;
+    border-radius: 18px;
+    transition: height 400ms ease;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.bar2__bar--yes {
+    height: calc(var(--yes) * 1%);
+    background: var(--couleur-secondaire);
+}
+
+.bar2__bar--no {
+    height: calc(var(--no) * 1%);
+    background: var(--couleur-secondaire);
+}
+
+.bar2__in {
+    font-family: var(--font-titre);
+    font-weight: 800;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--couleur-primaire);
+    user-select: none;
+}
+
+.bar2__meta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.bar2__label {
+    font-family: var(--font-texte);
+    color: var(--couleur-secondaire);
+    font-size: 1.05rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* ====== HSTATS (barres horizontales type screenshot) ====== */
+.hstats {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+}
+
+.hstat {
+    display: grid;
+    grid-template-columns: clamp(110px, 30%, 180px) 1fr;
+    align-items: center;
+    column-gap: 26px;
+}
+
+.hstat__label {
+    font-family: var(--font-titre);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--couleur-secondaire);
+    line-height: 1rem;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hstat__bar {
+    width: 100%;
+    height: 30px;
+    border-radius: 7px;
+    background: rgba(47, 111, 66, 0.28);
+    overflow: hidden;
+}
+
+.hstat__fill {
+    height: 100%;
+    width: calc(var(--v, 0) * 1%);
+    background: var(--couleur-secondaire);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    padding-left: 28px;
+    transition: width 400ms ease;
+}
+
+.hstat__pct {
+    font-family: var(--font-titre);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--couleur-primaire);
+    line-height: 1;
+}
+
+@media screen and (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hstat {
+        grid-template-columns: 160px 1fr;
+    }
+
+    .hstat__label {
+        font-size: 1rem;
+    }
+
+    .hstat__pct {
+        font-size: 1rem;
+    }
+
+    .hstat__bar {
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .stats-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .stats-text--left,
+    .stats-text--right {
+        text-align: center;
+    }
+
+    .hstat {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+    }
+
+    .hstat__label {
+        font-size: 1rem;
+    }
+}
 
 /* equipes */
-
 #equipes {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 600px;
-    padding: var(--margin);
+    align-items: center;
+    height: 700px;
     background-color: var(--couleur-primaire);
     overflow: hidden;
 }
@@ -247,7 +429,9 @@ img {
 }
 
 .carousel {
-    width: 100%;
+    width: 90vw;
+    position: relative;
+    overflow: hidden;
 }
 
 .carousel__track {
@@ -255,6 +439,8 @@ img {
     width: max-content;
     animation: scroll 25s linear infinite;
     will-change: transform;
+    position: relative;
+    z-index: 1;
 }
 
 .carousel__row {
@@ -265,6 +451,27 @@ img {
 
 .carousel:hover .carousel__track {
     animation-play-state: paused;
+}
+
+.carousel::before,
+.carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.carousel::before {
+    left: 0;
+    background: linear-gradient(to right, var(--couleur-primaire) 0%, rgba(185, 222, 180, 0) 100%);
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(to left, var(--couleur-primaire) 0%, rgba(185, 222, 180, 0) 100%);
 }
 
 @keyframes scroll {
@@ -326,9 +533,9 @@ img {
 }
 
 /* formulaire */
-
 #formulaire {
-    margin: var(--margin);
+    margin-left: 10vw;
+    margin-right: 10vw;
     display: flex;
     flex-direction: row;
     height: 600px;
@@ -345,8 +552,8 @@ img {
 
 #form-left>h2 {
     font-family: var(--font-titre);
-    font-size: var(--font-titre-section-size);
-    line-height: var(--font-titre-section-size);
+    font-size: 3rem;
+    line-height: 4rem;
 }
 
 #form-left>p {
@@ -367,6 +574,131 @@ img {
     background-color: var(--couleur-primaire);
     padding: 20px;
     border-radius: 20px;
+}
+
+button {
+    background-color: var(--couleur-secondaire);
+    border-radius: 10px;
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    font-family: var(--font-texte);
+    font-weight: 600;
+}
+
+/* ------------------------------------------------------------------
+   Bouton "Télécharger" qui se remplit selon le % (sans afficher %)
+   ------------------------------------------------------------------ */
+.download__btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 46px;
+
+    /* On garde le look de ton bouton */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* texte au-dessus du remplissage */
+.download__btnLabel {
+    position: relative;
+    z-index: 2;
+    transition: opacity 160ms ease;
+}
+
+/* état loading : fond "non rempli" un peu plus clair */
+.download__btn.is-loading {
+    background: rgba(47, 111, 66, 0.55);
+}
+
+/* remplissage selon --p (0 -> 100) */
+.download__btn.is-loading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: calc(var(--p, 0) * 1%);
+    background: var(--couleur-secondaire);
+    border-radius: inherit;
+    z-index: 1;
+    transition: width 120ms linear;
+}
+
+/* Le container utilisé par main.js : on le garde, mais invisible */
+.download__btnLayer {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+#messageContainer.download__messages {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* message injecté: on le cache pendant loading (on garde le label du bouton) */
+#messageContainer .message {
+    display: none !important;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border-radius: inherit;
+    background: transparent;
+    color: white;
+}
+
+#messageContainer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    /* invisible */
+    pointer-events: none;
+    /* ne gêne pas le clic */
+}
+
+/* On cache complètement la barre native + le % */
+#messageContainer .progress-container,
+#messageContainer progress.progress-bar,
+#messageContainer .progress-text {
+    display: none !important;
+}
+
+#messageContainer .message.success,
+#messageContainer .message.error {
+    display: flex !important;
+    inset: auto;
+    top: calc(100% + 12px);
+    left: 0;
+    right: 0;
+    background: var(--couleur-primaire);
+    color: var(--couleur-secondaire);
+    padding: 10px 12px;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* (optionnel) on évite que le message "loading" de main.js apparaisse dans le bouton */
+#messageContainer .message.loading {
+    opacity: 0;
+}
+
+.download__consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--couleur-secondaire);
+    cursor: pointer;
+    border: none;
+}
+
+.download__consent label {
+    cursor: pointer;
+    margin-left: 8px;
 }
 
 form {
@@ -396,69 +728,184 @@ footer {
     font-family: var(--font-texte);
     font-size: var(--font-texte-size);
     padding: 10%;
+    color: var(--couleur-secondaire);
 }
 
-/* Responsive */
+/* ---------- MODAL EQUIPES ---------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 9999;
+}
 
-@media screen and (max-width: 900px) {
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 1fr;
-        gap: var(--gap);
-    }
+.modal.is-open {
+    display: block;
+}
+
+.modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.modal__dialog {
+    position: relative;
+    width: min(860px, calc(100vw - 2 * var(--margin)));
+    max-height: min(80vh, 700px);
+    margin: 8vh auto;
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    background: var(--couleur-primaire);
+}
+
+.modal__header h3 {
+    font-family: var(--font-titre);
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+}
+
+.modal__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(47, 111, 66, 0.18);
+    color: var(--couleur-secondaire);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal__content {
+    padding: 18px 20px 22px;
+    overflow: auto;
+    max-height: calc(min(80vh, 700px) - 72px);
+}
+
+.teams-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.teams-list__item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.teams-list__avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 999px;
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-list__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 10px;
+}
+
+.teams-list__line {
+    flex: 1;
+    height: 46px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-family: var(--font-texte);
+    font-weight: 600;
 }
 
 @media screen and (max-width: 720px) {
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        grid-auto-rows: 1fr;
-        gap: var(--gap);
+    .modal__dialog {
+        width: calc(100vw - 24px);
+        margin: 10vh auto;
     }
 
-    .stats-text--left {
-        justify-content: center;
-        text-align: center;
+    .teams-list__avatar {
+        width: 62px;
+        height: 62px;
     }
 
-    .stats-text--right {
-        justify-content: center;
-        text-align: center;
+    .teams-list__line {
+        height: 42px;
     }
 
     #formulaire {
-        gap: 40px;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
     }
 
-    #form-left {
+    #form-left{
         width: 100%;
-        display: flex;
         text-align: center;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0px 5%;
-        gap: 20px;
+        padding-bottom: 40px;
     }
-
-    #form-left>h2 {
-        font-family: var(--font-titre);
-        font-size: var(--font-titre-section-size);
-        line-height: var(--font-titre-section-size);
-    }
-
-    #form-left>p {
-        font-family: var(--font-texte);
-        font-size: var(--font-texte-size);
-    }
-
-    #form-right {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    #form-right{
         width: 100%;
     }
+}
+
+/* ====== CARD % GEANT AU CENTRE (Plateformes e-commerce) ====== */
+.stat-card--bigvalue {
+    position: relative;
+}
+
+/* Caché par défaut, apparaîtra au hover */
+.stat-card--bigvalue .stat-card__big {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+
+    font-family: var(--font-titre);
+    font-weight: 800;
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 1;
+    color: var(--couleur-secondaire);
+
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 150ms ease, transform 150ms ease;
+    pointer-events: none;
+}
+
+/* Au hover : on affiche le % en grand */
+.stat-card--bigvalue:hover .stat-card__big {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Optionnel : si tu ne veux PAS voir le header sur cette card au hover */
+.stat-card--bigvalue:hover .stat-card__header {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(6px);
+    pointer-events: none;
 }

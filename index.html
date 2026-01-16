@@ -2,94 +2,113 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
     <script src="src/main.js" type="module" defer></script>
 </head>
 
 <body>
+    <!-- MODAL -->
+    <div id="teamsModal" class="modal" aria-hidden="true">
+        <div class="modal__backdrop" data-close-modal></div>
+
+        <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="teamsModalTitle">
+            <header class="modal__header">
+                <h3 id="teamsModalTitle">Les équipes analysées</h3>
+                <button class="modal__close" type="button" aria-label="Fermer" data-close-modal>×</button>
+            </header>
+
+            <div class="modal__content">
+                <ul id="teamsModalList" class="teams-list"></ul>
+            </div>
+        </div>
+    </div>
 
     <section id="hero">
         <h2>27 clubs analysés, des usages concrets révélés</h2>
         <h1>Le football romand à l’ère du digital</h1>
-        <a href="#">Télécharger</a>
+        <a href="#formulaire">Télécharger</a>
     </section>
 
     <section id="stats">
         <div class="stats-grid">
-            <article class="stats-text stats-text--left">Synthèse<br>des chiffres</article>
+            <article class="stats-text stats-text--left">Synthèse<br />des chiffres</article>
 
+            <!-- CARD 1 : OUI/NON vertical -->
             <article class="stat-card stat-card--chart" style="--value: 68">
-                <!-- Titre visible AVANT hover -->
-                <p class="stat-card__title stat-card__title--preview">Clubs présents sur Instagram</p>
+                <p class="stat-card__title stat-card__title--preview">Clubs qui utilisent WordPress</p>
 
-                <div class="stat-card__header">
-                    <!-- Titre visible AU hover -->
-                    <p class="stat-card__title stat-card__title--header">Clubs présents sur Instagram</p>
-                    <p class="stat-card__value">68%</p>
+                <div class="bar2" role="img" aria-label="Répartition Oui/Non">
+                    <div class="bar2__col">
+                        <div class="bar2__plot">
+                            <span class="bar2__bar bar2__bar--yes">
+                                <span class="bar2__in bar2__in--yes"></span>
+                            </span>
+                        </div>
+                        <div class="bar2__meta">
+                            <span class="bar2__label">Oui</span>
+                        </div>
+                    </div>
+
+                    <div class="bar2__col">
+                        <div class="bar2__plot">
+                            <span class="bar2__bar bar2__bar--no">
+                                <span class="bar2__in bar2__in--no"></span>
+                            </span>
+                        </div>
+                        <div class="bar2__meta">
+                            <span class="bar2__label">Non</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="bar">
-                    <span class="bar__fill" aria-hidden="true"></span>
-                </div>
-
-                <p class="stat-card__hint">Sur 27 clubs analysés</p>
             </article>
 
-            <article class="stat-card stat-card--chart" style="--value: 4.2">
-                <!-- Titre visible AVANT hover -->
-                <p class="stat-card__title stat-card__title--preview">Publications / semaine (moy.)</p>
+            <!-- CARD 2 : barres horizontales type screenshot -->
+            <article class="stat-card stat-card--chart stat-card--social">
+                <p class="stat-card__title stat-card__title--preview">Clubs avec compte actif sur les réseaux sociaux
+                </p>
 
-                <div class="stat-card__header">
-                    <!-- Titre visible AU hover -->
-                    <p class="stat-card__title stat-card__title--header">Publications / semaine (moy.)</p>
-                    <p class="stat-card__value">4.2</p>
+                <div class="hstats" role="img" aria-label="YouTube 20%, TikTok 19%, X/Twitter 13%">
+                    <div class="hstat" style="--v: 30">
+                        <div class="hstat__label">Youtube</div>
+                        <div class="hstat__bar">
+                            <div class="hstat__fill"><span class="hstat__pct">20%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="hstat" style="--v: 25">
+                        <div class="hstat__label">TikTok</div>
+                        <div class="hstat__bar">
+                            <div class="hstat__fill"><span class="hstat__pct">19%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="hstat" style="--v: 18">
+                        <div class="hstat__label">X/Twitter</div>
+                        <div class="hstat__bar">
+                            <div class="hstat__fill"><span class="hstat__pct">13%</span></div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="bar bar--max" style="--max: 10">
-                    <span class="bar__fill" aria-hidden="true"></span>
-                </div>
-
-                <p class="stat-card__hint">Échelle : 0 → 10</p>
             </article>
 
-            <article class="stat-card stat-card--chart" style="--value: 81">
-                <!-- Titre visible AVANT hover -->
-                <p class="stat-card__title stat-card__title--preview">Clubs avec site à jour</p>
-
-                <div class="stat-card__header">
-                    <!-- Titre visible AU hover -->
-                    <p class="stat-card__title stat-card__title--header">Clubs avec site à jour</p>
-                    <p class="stat-card__value">81%</p>
-                </div>
-
-                <div class="bar">
-                    <span class="bar__fill" aria-hidden="true"></span>
-                </div>
-
-                <p class="stat-card__hint">Pages actus / résultats</p>
-            </article>
-
-            <article class="stat-card stat-card--chart" style="--value: 55">
-                <!-- Titre visible AVANT hover -->
+            <!-- CARD 3 : % géant au centre au hover -->
+            <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
-
-                <div class="stat-card__header">
-                    <!-- Titre visible AU hover -->
-                    <p class="stat-card__title stat-card__title--header">Clubs avec newsletter</p>
-                    <p class="stat-card__value">55%</p>
-                </div>
-
-                <div class="bar">
-                    <span class="bar__fill" aria-hidden="true"></span>
-                </div>
-
-                <p class="stat-card__hint">Opt-in / communication</p>
+                <div class="stat-card__header"></div>
+                <p class="stat-card__big">15%</p>
             </article>
 
-            <article class="stats-text stats-text--right">Extraits de<br>l’analyse complète</article>
+            <!-- CARD 4 : barre horizontale simple -->
+            <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
+                <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
+                <div class="stat-card__header"></div>
+                <p class="stat-card__big">1/4</p>
+            </article>
+
+            <article class="stats-text stats-text--right">Extraits de<br />l’analyse complète</article>
         </div>
     </section>
 
@@ -114,8 +133,7 @@
 
     <section id="formulaire">
         <div id="form-left">
-            <h2>Télécharger le rapport</h2>
-            <p>Texte à remplir comme on le voudra par la suite</p>
+            <h2>Télécharger<br>le rapport</h2>
         </div>
 
         <div id="form-right">
@@ -134,17 +152,296 @@
                     <label for="consent">S’inscrire à la newsletter</label>
                 </div>
 
-                <button type="submit" class="download__btn">TÉLÉCHARGER</button>
+                <button type="submit" class="download__btn" id="downloadBtn">
+                    <span class="download__btnLabel">Télécharger</span>
+
+                    <span class="download__btnLayer" aria-hidden="true">
+                        <div id="messageContainer" class="download__messages"></div>
+                    </span>
+                </button>
             </form>
-            <div id="messageContainer" class="download__messages"></div>
         </div>
     </section>
 
-</body>
+    <footer>
+        <p>
+            Projet académique – HEIG-VD Analyse de l’écosystème digital des clubs de football romands<br />
+            Réalisé par Daria Beaumann et Mattia Morel – Ingénierie des médias© 2026
+        </p>
+    </footer>
 
-<footer>
-    <p>Projet académique – HEIG-VDAnalyse de l’écosystème digital des clubs de football romands<br>Réalisé par Daria
-        Beaumann et Mattia Morel – Ingénierie des médias© 2026</p>
-</footer>
+    <script>
+        // MODAL
+        const btnEquipes = document.querySelector("#btn-equipes");
+        const modal = document.querySelector("#teamsModal");
+        const modalList = document.querySelector("#teamsModalList");
+
+        function openModal() {
+            document.body.style.overflow = "hidden";
+            modalList.innerHTML = "";
+
+            const cards = document.querySelectorAll("#teamList .team-card");
+            cards.forEach((card) => {
+                const img = card.querySelector("img");
+                const nameEl = card.querySelector(".team-card__name");
+
+                const li = document.createElement("li");
+                li.className = "teams-list__item";
+
+                const avatar = document.createElement("div");
+                avatar.className = "teams-list__avatar";
+
+                if (img && img.getAttribute("src")) {
+                    const modalImg = document.createElement("img");
+                    modalImg.src = img.src;
+                    modalImg.alt = img.alt || "";
+                    avatar.appendChild(modalImg);
+                }
+
+                const line = document.createElement("div");
+                line.className = "teams-list__line";
+                line.textContent = nameEl ? nameEl.textContent.trim() : "Équipe";
+
+                li.appendChild(avatar);
+                li.appendChild(line);
+                modalList.appendChild(li);
+            });
+
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+        }
+
+        function closeModal() {
+            modal.classList.remove("is-open");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        btnEquipes?.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal();
+        });
+
+        modal?.addEventListener("click", (e) => {
+            const target = e.target;
+            if (target && target.hasAttribute("data-close-modal")) closeModal();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("is-open")) {
+                closeModal();
+            }
+        });
+
+        // Remplit les % dans bar2 (Oui/Non)
+        document.querySelectorAll(".stat-card--chart").forEach((card) => {
+            const raw = getComputedStyle(card).getPropertyValue("--value").trim();
+            const v = parseFloat(raw);
+
+            const yesIn = card.querySelector(".bar2__in--yes");
+            const noIn = card.querySelector(".bar2__in--no");
+
+            if (yesIn && !Number.isNaN(v)) {
+                const yes = Math.max(0, Math.min(100, v));
+                const no = 100 - yes;
+                yesIn.textContent = `${Math.round(yes)}%`;
+                if (noIn) noIn.textContent = `${Math.round(no)}%`;
+            }
+        });
+
+
+        // -----------------------------------------------------------------
+        // Bouton téléchargement + remplissage + fin propre (sans toucher main.js)
+        // -----------------------------------------------------------------
+        const downloadBtn = document.querySelector("#downloadBtn");
+        const msgContainer = document.querySelector("#messageContainer");
+        const form = document.querySelector("#downloadForm");
+
+        if (downloadBtn && msgContainer && form) {
+            const label = downloadBtn.querySelector(".download__btnLabel");
+
+            let rafId = null;
+            let manualLoading = false;
+
+            // Pour détecter "fin" même si main.js n'affiche pas de success
+            let wasLoading = false;
+            let hadProgressDuringThisDownload = false;
+
+            const setProgressPct = (pct) => {
+                const safe = Math.max(0, Math.min(100, pct));
+                downloadBtn.style.setProperty("--p", safe.toFixed(2));
+            };
+
+            const getProgressInfo = () => {
+                const progressEl = msgContainer.querySelector("progress.progress-bar");
+                if (!progressEl) return { exists: false, pct: 0 };
+
+                const max = Number(progressEl.max) || 100;
+                const val = Number(progressEl.value) || 0;
+                const pct = max > 0 ? (val / max) * 100 : 0;
+                return { exists: true, pct };
+            };
+
+            const getInjectedMessageText = () => {
+                const msg = msgContainer.querySelector(".message");
+                return (msg?.textContent || "").trim().toLowerCase();
+            };
+
+            const computeState = () => {
+                const msg = msgContainer.querySelector(".message");
+                const txt = getInjectedMessageText();
+                const { exists, pct } = getProgressInfo();
+
+                // Erreur (si main.js en envoie une)
+                const isError =
+                    msg?.classList.contains("error") ||
+                    txt.includes("erreur") ||
+                    txt.includes("error") ||
+                    txt.includes("échec") ||
+                    txt.includes("echec");
+
+                // Succès explicite (si main.js en envoie un)
+                let isSuccess =
+                    msg?.classList.contains("success") ||
+                    txt.includes("terminé") ||
+                    txt.includes("termine") ||
+                    txt.includes("succès") ||
+                    txt.includes("success");
+
+                // Loading si on a soumis + pas erreur + (progress en cours ou texte en cours)
+                let isLoading =
+                    !isError &&
+                    !isSuccess &&
+                    (manualLoading ||
+                        (exists && pct < 100) ||
+                        txt.includes("téléchargement") ||
+                        txt.includes("telechargement") ||
+                        txt.includes("download"));
+
+                // Marque si on a déjà vu une progress bar pendant CE download
+                if (manualLoading && exists) hadProgressDuringThisDownload = true;
+
+                // ✅ FIN implicite :
+                // Si on était en loading, qu'on a déjà vu une progress bar,
+                // et que maintenant elle a disparu (ou est >= 100) => terminé.
+                if (
+                    manualLoading &&
+                    !isError &&
+                    !isSuccess &&
+                    wasLoading &&
+                    hadProgressDuringThisDownload &&
+                    (!exists || pct >= 100)
+                ) {
+                    isSuccess = true;
+                    isLoading = false;
+                }
+
+                return { isLoading, isSuccess, isError, pct, hasProgress: exists };
+            };
+
+            const stop = () => {
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = null;
+            };
+
+            const tick = () => {
+                const { isLoading, pct, hasProgress } = computeState();
+                if (hasProgress) setProgressPct(pct);
+                if (isLoading) rafId = requestAnimationFrame(tick);
+            };
+
+            form.addEventListener("submit", () => {
+                manualLoading = true;
+                wasLoading = true;
+                hadProgressDuringThisDownload = false;
+
+                requestAnimationFrame(() => {
+                    downloadBtn.classList.add("is-loading");
+                    downloadBtn.disabled = true;
+                    downloadBtn.setAttribute("aria-busy", "true");
+                    if (label) label.textContent = "Téléchargement...";
+
+                    stop();
+                    setProgressPct(0);
+                    tick();
+                });
+            });
+
+            const syncButtonState = () => {
+                const { isLoading, isSuccess, isError, pct, hasProgress } = computeState();
+                const lockUntil = Number(downloadBtn.dataset.doneLockUntil || 0);
+                if (lockUntil && Date.now() < lockUntil) {
+                    // Pendant le lock: on n'écrase pas le label "Téléchargement terminé !"
+                    return;
+                }
+
+                wasLoading = isLoading || (manualLoading && hadProgressDuringThisDownload);
+
+                // TEXTE
+                if (label) {
+                    if (isLoading) label.textContent = "Téléchargement...";
+                    else if (isSuccess) label.textContent = "Téléchargement terminé !";
+                    else if (isError) label.textContent = "Erreur de téléchargement";
+                    else label.textContent = "Télécharger";
+                }
+
+                // ETAT VISUEL
+                if (isLoading) {
+                    downloadBtn.classList.add("is-loading");
+                    downloadBtn.disabled = true;
+                    downloadBtn.setAttribute("aria-busy", "true");
+                    if (hasProgress) setProgressPct(pct);
+
+                    stop();
+                    tick();
+                    return;
+                }
+
+                // FIN (succès ou erreur) -> retour au style normal (#2F6F42 via ton CSS de base)
+                manualLoading = false;
+                downloadBtn.classList.remove("is-loading");
+                downloadBtn.disabled = false;
+                downloadBtn.setAttribute("aria-busy", "false");
+                stop();
+
+                if (isSuccess) {
+                    // 1) on force l'affichage du message "terminé" et on le garde un moment
+                    const doneMs = 1200; // durée d'affichage du message "Téléchargement terminé !"
+
+                    downloadBtn.dataset.doneLockUntil = String(Date.now() + doneMs);
+                    if (label) label.textContent = "Téléchargement terminé !";
+
+                    // petit flash 100% puis reset
+                    setProgressPct(100);
+                    clearTimeout(downloadBtn._resetFillTimer);
+                    downloadBtn._resetFillTimer = setTimeout(() => setProgressPct(0), 250);
+
+                    // 2) après doneMs, on revient à l'état normal (texte)
+                    clearTimeout(downloadBtn._doneTimer);
+                    downloadBtn._doneTimer = setTimeout(() => {
+                        if (label) label.textContent = "Télécharger";
+                        delete downloadBtn.dataset.doneLockUntil;
+                    }, doneMs);
+                } else {
+                    setProgressPct(0);
+                }
+
+            };
+
+            const observer = new MutationObserver(syncButtonState);
+            observer.observe(msgContainer, {
+                childList: true,
+                subtree: true,
+                characterData: true,
+                attributes: true,
+                attributeFilter: ["class", "value", "max"],
+            });
+
+            syncButtonState();
+        }
+
+
+    </script>
+</body>
 
 </html>
