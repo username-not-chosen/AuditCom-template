@@ -62,7 +62,7 @@ img {
     text-decoration: none;
     color: white;
     background-color: var(--couleur-secondaire);
-    width: 150px;
+    width: 220px;
     margin-top: 40px;
     font-family: var(--font-texte);
     font-weight: 600;
@@ -909,3 +909,10 @@ footer {
     transform: translateY(6px);
     pointer-events: none;
 }
+
+.consent-hint {
+            margin: 8px 0 0;
+            font-size: 0.95rem;
+            line-height: 1.25;
+            color: #b00020;
+        }

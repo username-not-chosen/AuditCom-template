@@ -4,9 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Landing page - DigitalCom</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="src/main.js" type="module" defer></script>
+    <meta property="og:title" content="Landing page - DigitalCom">
+    <meta property="og:description"
+        content="Un rapport complet sur les stratégies digitales des clubs romands.">
+    <meta property="og:image" content="https://username-not-chosen.github.io/AuditCom-template/images/hero.webp">
+    <meta property="og:url" content="https://username-not-chosen.github.io/AuditCom-template">
+    <meta property="og:type" content="website">
+
 </head>
 
 <body>
@@ -29,7 +36,7 @@
     <section id="hero">
         <h2>27 clubs analysés, des usages concrets révélés</h2>
         <h1>Le football romand à l’ère du digital</h1>
-        <a href="#formulaire">Télécharger</a>
+        <a href="#formulaire">Accéder aux résultats</a>
     </section>
 
     <section id="stats">
@@ -65,7 +72,6 @@
                 </div>
             </article>
 
-            <!-- CARD 2 : barres horizontales type screenshot -->
             <article class="stat-card stat-card--chart stat-card--social">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec compte actif sur les réseaux sociaux
                 </p>
@@ -94,14 +100,14 @@
                 </div>
             </article>
 
-            <!-- CARD 3 : % géant au centre au hover -->
+            
             <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
                 <div class="stat-card__header"></div>
                 <p class="stat-card__big">15%</p>
             </article>
 
-            <!-- CARD 4 : barre horizontale simple -->
+            
             <article class="stat-card stat-card--chart stat-card--bigvalue" style="--value: 15">
                 <p class="stat-card__title stat-card__title--preview">Clubs avec newsletter</p>
                 <div class="stat-card__header"></div>
@@ -151,6 +157,9 @@
                     <input id="consent" type="checkbox" name="newsletterAgreement" />
                     <label for="consent">S’inscrire à la newsletter</label>
                 </div>
+
+                
+                <p id="consentHint" class="consent-hint" aria-live="polite"></p>
 
                 <button type="submit" class="download__btn" id="downloadBtn">
                     <span class="download__btnLabel">Télécharger</span>
@@ -233,7 +242,7 @@
             }
         });
 
-        // Remplit les % dans bar2 (Oui/Non)
+        
         document.querySelectorAll(".stat-card--chart").forEach((card) => {
             const raw = getComputedStyle(card).getPropertyValue("--value").trim();
             const v = parseFloat(raw);
@@ -250,12 +259,11 @@
         });
 
 
-        // -----------------------------------------------------------------
-        // Bouton téléchargement + remplissage + fin propre (sans toucher main.js)
-        // -----------------------------------------------------------------
         const downloadBtn = document.querySelector("#downloadBtn");
         const msgContainer = document.querySelector("#messageContainer");
         const form = document.querySelector("#downloadForm");
+        const consent = document.querySelector("#consent");
+        const consentHint = document.querySelector("#consentHint");
 
         if (downloadBtn && msgContainer && form) {
             const label = downloadBtn.querySelector(".download__btnLabel");
@@ -263,13 +271,40 @@
             let rafId = null;
             let manualLoading = false;
 
-            // Pour détecter "fin" même si main.js n'affiche pas de success
+            
             let wasLoading = false;
             let hadProgressDuringThisDownload = false;
 
             const setProgressPct = (pct) => {
                 const safe = Math.max(0, Math.min(100, pct));
                 downloadBtn.style.setProperty("--p", safe.toFixed(2));
+            };
+
+            
+            const renderMessage = ({ type = "error", text = "", showProgress = false, pct = 0 } = {}) => {
+                const safePct = Math.max(0, Math.min(100, pct));
+                msgContainer.innerHTML = `
+          <aside class="message ${type}">
+            <p>${text}</p>
+            <div class="progress-container" style="${showProgress ? "" : "display:none;"}">
+              <progress class="progress-bar" value="${safePct}" max="100"></progress>
+              <span class="progress-text">${showProgress ? `${Math.round(safePct)}%` : ""}</span>
+            </div>
+          </aside>
+        `;
+            };
+
+            const resetButtonNow = () => {
+                manualLoading = false;
+                wasLoading = false;
+                hadProgressDuringThisDownload = false;
+
+                downloadBtn.classList.remove("is-loading");
+                downloadBtn.disabled = false;
+                downloadBtn.setAttribute("aria-busy", "false");
+
+                stop();
+                setProgressPct(0);
             };
 
             const getProgressInfo = () => {
@@ -292,7 +327,7 @@
                 const txt = getInjectedMessageText();
                 const { exists, pct } = getProgressInfo();
 
-                // Erreur (si main.js en envoie une)
+                
                 const isError =
                     msg?.classList.contains("error") ||
                     txt.includes("erreur") ||
@@ -300,7 +335,7 @@
                     txt.includes("échec") ||
                     txt.includes("echec");
 
-                // Succès explicite (si main.js en envoie un)
+                
                 let isSuccess =
                     msg?.classList.contains("success") ||
                     txt.includes("terminé") ||
@@ -308,7 +343,7 @@
                     txt.includes("succès") ||
                     txt.includes("success");
 
-                // Loading si on a soumis + pas erreur + (progress en cours ou texte en cours)
+                
                 let isLoading =
                     !isError &&
                     !isSuccess &&
@@ -318,12 +353,10 @@
                         txt.includes("telechargement") ||
                         txt.includes("download"));
 
-                // Marque si on a déjà vu une progress bar pendant CE download
+               
                 if (manualLoading && exists) hadProgressDuringThisDownload = true;
 
-                // ✅ FIN implicite :
-                // Si on était en loading, qu'on a déjà vu une progress bar,
-                // et que maintenant elle a disparu (ou est >= 100) => terminé.
+                
                 if (
                     manualLoading &&
                     !isError &&
@@ -350,7 +383,30 @@
                 if (isLoading) rafId = requestAnimationFrame(tick);
             };
 
-            form.addEventListener("submit", () => {
+           
+            form.addEventListener("submit", (e) => {
+                
+                if (consent && !consent.checked) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+
+                    resetButtonNow();
+
+                    if (consentHint) {
+                        consentHint.textContent = "Pour télécharger le rapport, vous devez cocher la case newsletter.";
+                    }
+
+                   
+                    if (label) label.textContent = "Télécharger le rapport complet";
+
+                  
+                    return;
+                }
+
+               
+                if (consentHint) consentHint.textContent = "";
+
+               
                 manualLoading = true;
                 wasLoading = true;
                 hadProgressDuringThisDownload = false;
@@ -365,15 +421,39 @@
                     setProgressPct(0);
                     tick();
                 });
+
+               
+                clearTimeout(downloadBtn._watchdog);
+                downloadBtn._watchdog = setTimeout(() => {
+                    const hasMsg = !!msgContainer.querySelector(".message");
+                    const hasProg = !!msgContainer.querySelector("progress.progress-bar");
+
+                    if (downloadBtn.classList.contains("is-loading") && !hasMsg && !hasProg) {
+                        resetButtonNow();
+
+                        renderMessage({
+                            type: "error",
+                            text: "Téléchargement interrompu. Réessayez ou vérifiez le formulaire.",
+                            showProgress: false
+                        });
+
+                        if (label) label.textContent = "Erreur de téléchargement";
+                    }
+                }, 8000);
+            }, true); 
+
+         
+            consent?.addEventListener("change", () => {
+                if (!consentHint) return;
+                consentHint.textContent = consent.checked
+                    ? ""
+                    : "Pour télécharger le rapport, vous devez cocher la case newsletter.";
             });
 
             const syncButtonState = () => {
                 const { isLoading, isSuccess, isError, pct, hasProgress } = computeState();
                 const lockUntil = Number(downloadBtn.dataset.doneLockUntil || 0);
-                if (lockUntil && Date.now() < lockUntil) {
-                    // Pendant le lock: on n'écrase pas le label "Téléchargement terminé !"
-                    return;
-                }
+                if (lockUntil && Date.now() < lockUntil) return;
 
                 wasLoading = isLoading || (manualLoading && hadProgressDuringThisDownload);
 
@@ -382,7 +462,7 @@
                     if (isLoading) label.textContent = "Téléchargement...";
                     else if (isSuccess) label.textContent = "Téléchargement terminé !";
                     else if (isError) label.textContent = "Erreur de téléchargement";
-                    else label.textContent = "Télécharger";
+                    else label.textContent = "Télécharger le rapport complet";
                 }
 
                 // ETAT VISUEL
@@ -397,7 +477,7 @@
                     return;
                 }
 
-                // FIN (succès ou erreur) -> retour au style normal (#2F6F42 via ton CSS de base)
+                // FIN (succès ou erreur)
                 manualLoading = false;
                 downloadBtn.classList.remove("is-loading");
                 downloadBtn.disabled = false;
@@ -405,27 +485,23 @@
                 stop();
 
                 if (isSuccess) {
-                    // 1) on force l'affichage du message "terminé" et on le garde un moment
-                    const doneMs = 1200; // durée d'affichage du message "Téléchargement terminé !"
+                    const doneMs = 1200;
 
                     downloadBtn.dataset.doneLockUntil = String(Date.now() + doneMs);
                     if (label) label.textContent = "Téléchargement terminé !";
 
-                    // petit flash 100% puis reset
                     setProgressPct(100);
                     clearTimeout(downloadBtn._resetFillTimer);
                     downloadBtn._resetFillTimer = setTimeout(() => setProgressPct(0), 250);
 
-                    // 2) après doneMs, on revient à l'état normal (texte)
                     clearTimeout(downloadBtn._doneTimer);
                     downloadBtn._doneTimer = setTimeout(() => {
-                        if (label) label.textContent = "Télécharger";
+                        if (label) label.textContent = "Télécharger le rapport complet";
                         delete downloadBtn.dataset.doneLockUntil;
                     }, doneMs);
                 } else {
                     setProgressPct(0);
                 }
-
             };
 
             const observer = new MutationObserver(syncButtonState);
@@ -439,8 +515,6 @@
 
             syncButtonState();
         }
-
-
     </script>
 </body>
 
